@@ -57,6 +57,8 @@
             var keys = Object.keys(data);
             returnVar_seq = keys[0];
             console.log(returnVar_seq);
+            var theDiv_seq = document.getElementById(serviceName + '_Seq');
+            theDiv_seq.innerHTML = returnVar_seq;
           });
           
           params['where'] = '(properties["serviceName"] == "'+serviceName+'") and (properties["direction"] == "In")';
@@ -73,7 +75,7 @@
           
           console.log("waiting");
           
-          setTimeout(function(){ displayResults(returnVar_seq, returnVar_in, returnVar_out, serviceName); }, 3000);
+          // setTimeout(function(){ displayResults(returnVar_seq, returnVar_in, returnVar_out, serviceName); }, 3000);
           
           /*$.when(returnVar_seq, returnVar_in, returnVar_out).then(function(seq, inn, out)
           {
