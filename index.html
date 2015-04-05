@@ -57,6 +57,7 @@
             var keys = Object.keys(data);
             returnVar_seq = keys[0];
             console.log(returnVar_seq);
+            serviceName = serviceName.split(' ').join('_');
             var theDiv_seq = document.getElementById(serviceName + '_Seq');
             theDiv_seq.innerHTML = returnVar_seq;
           });
