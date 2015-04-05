@@ -51,6 +51,7 @@
           var returnVar_in = $.Deferred();
           var returnVar_out = $.Deferred();
           
+          params['where'] = '(properties["serviceName"] == "'+serviceName+'")';
           MP.api.segment(event, 'serviceDisplayOrder', params).done(function(results) {
             var data = results.values();
             var keys = Object.keys(data);
