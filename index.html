@@ -38,8 +38,7 @@
         var segQuery = function(serviceName) {
           params = {
             from: '2015-03-01',
-            to: moment(),
-            unit: 'day'
+            to: moment()
           };
           serviceNameID = serviceName.split(' ').join('_');
           $('table#resultsTable').append(
