@@ -75,8 +75,12 @@
           });
         }
         
-        segQuery('Deduplicate');
-        segQuery('Search APIs');
+        var serviceNames = ['Deduplicate', 'Search APIs'];
+        _.each(serviceNames, function(serviceName) {
+          segQuery(serviceName);
+        });
+        //segQuery('Deduplicate');
+        //segQuery('Search APIs');
       });
     </script>
     <table id="resultsTable">
