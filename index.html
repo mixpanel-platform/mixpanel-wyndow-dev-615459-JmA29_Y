@@ -49,6 +49,7 @@
           serviceNameID = serviceName.split(' ').join('_');
           console.log("RESULTS TABLE");
           console.log($('#resultsTable').append);
+          $('#resultsTable').append("hello");
           $('#resultsTable').append(
             '<tr>' +
             '<td>' + serviceName + '</td>' +
@@ -58,9 +59,6 @@
             '</tr>'
           );
           var event = 'Experience Stats Proto';
-          var returnVar_seq = $.Deferred();
-          var returnVar_in = $.Deferred();
-          var returnVar_out = $.Deferred();
           
           params['where'] = '(properties["serviceName"] == "' + serviceName + '")';
           MP.api.segment(event, 'serviceDisplayOrder', params).done(function(results) {
