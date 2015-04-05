@@ -5,11 +5,97 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
+    <style>
+      table#resultsTable {
+        width: 100%; 
+        background-color: #f1f1c1;
+        border: 1;
+        align: center;
+      }
+    </style>
   </head>
   <body class="mixpanel-platform-body">
-    <h1>Hello, World!</h1>
     <script>
-      // Run queries and display results here
+      MP.api.ready(function() {
+        
+        params = {
+          from: '2015-03-01',
+          to: moment(),
+          unit: 'day',
+          where: '(properties["serviceName"] == "Deduplicate")'
+        }
+        
+        var calculateResults = function(data, result){
+          var keys = Object.keys(data[result]);
+          var total = 0;
+          for(i=0; i<keys.length; i++){
+            total += data[result][keys[i]];
+          }
+          return total;
+        }
+        
+        var displayResults = function(seq, inn, out, serviceName){
+          var theDiv_seq = document.getElementById(serviceName + '_Seq');
+          var theDiv_in = document.getElementById(serviceName + '_In');
+          var theDiv_out = document.getElementById(serviceName + '_Out');
+          console.log(seq);
+          theDiv_seq.innerHTML = seq;
+          theDiv_in.innerHTML = inn;
+          theDiv_out.innerHTML = out;
+        }
+        
+        var segQuery = function(serviceName){
+          var event = 'Experience Stats Proto';
+          var returnVar_seq = $.Deferred();
+          var returnVar_in = $.Deferred();
+          var returnVar_out = $.Deferred();
+          
+          MP.api.segment(event, 'serviceDisplayOrder', params).done(function(results) {
+            var data = results.values();
+            var keys = Object.keys(data);
+            returnVar_seq = keys[0];
+            console.log(returnVar_seq);
+          });
+          
+          params['where'] = '(properties["serviceName"] == "'+serviceName+'") and (properties["direction"] == "In")';
+          MP.api.segment(event, 'direction', params).done(function(results) {
+            returnVar_in = calculateResults(results.values(), 'In');
+            console.log(returnVar_in);
+          });
+          
+          params['where'] = '(properties["serviceName"] == "'+serviceName+'") and (properties["direction"] == "Out")';
+          MP.api.segment(event, 'direction', params).done(function(results) {
+            returnVar_out = calculateResults(results.values(), 'Out');
+            console.log(returnVar_out);
+          });
+          
+          console.log("waiting");
+          
+          setTimeout(function(){ displayResults(returnVar_seq, returnVar_in, returnVar_out, serviceName); }, 3000);
+          
+          /*$.when(returnVar_seq, returnVar_in, returnVar_out).then(function(seq, inn, out)
+          {
+            console.log("resolved");
+            displayResults(seq, inn, out, serviceName);
+          });*/
+        }
+        
+        segQuery('Deduplicate');
+      });
     </script>
+    <table id="resultsTable">
+      <tr>
+        <td>Service Name</td>
+        <td>Service Sequence</td>
+        <td>Total Events In</td>
+        <td>Total Events Out</td>
+      </tr>
+      <tr>
+        <td>Deduplicate</td>
+        <td id='Deduplicate_Seq'></td>
+        <td id='Deduplicate_In'></td>
+        <td id='Deduplicate_Out'></td>
+      </tr>
+    </table>
   </body>
 </html>
