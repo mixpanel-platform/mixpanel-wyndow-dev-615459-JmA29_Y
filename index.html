@@ -40,7 +40,7 @@
             from: '2015-03-01',
             to: moment()
           };
-          serviceNameID = serviceName.split(' ').join('_');
+          serviceNameID = serviceName.split(' ').join('_').replace('/\(\)/g', '');
           $('table#resultsTable').append(
             '<tr>' +
             '<td>' + serviceName + '</td>' +
@@ -56,22 +56,19 @@
             var data = results.values();
             var keys = Object.keys(data);
             serviceSequence = keys[0];
-            serviceName = serviceName.split(' ').join('_');
-            $('#' + serviceName + '_Seq').html(serviceSequence);
+            $('#' + serviceNameID + '_Seq').html(serviceSequence);
           });
           
           params['where'] = '(properties["serviceName"] == "' + serviceName + '") and (properties["direction"] == "In")';
           MP.api.segment(event, 'direction', params).done(function(results) {
             eventsIn = calculateResults(results.values(), 'In');
-            serviceName = serviceName.split(' ').join('_');
-            $('#' + serviceName + '_In').html(eventsIn);
+            $('#' + serviceNameID + '_In').html(eventsIn);
           });
           
           params['where'] = '(properties["serviceName"] == "' + serviceName + '") and (properties["direction"] == "Out")';
           MP.api.segment(event, 'direction', params).done(function(results) {
             eventsOut = calculateResults(results.values(), 'Out');
-            serviceName = serviceName.split(' ').join('_');
-            $('#' + serviceName + '_Out').html(eventsOut);
+            $('#' + serviceNameID + '_Out').html(eventsOut);
           });
         }
         
