@@ -26,13 +26,6 @@
     <script>
       MP.api.ready(function() {
         
-        params = {
-          from: '2015-03-01',
-          to: moment(),
-          unit: 'day',
-          where: '(properties["serviceName"] == "Deduplicate")'
-        }
-        
         var calculateResults = function(data, result){
           var keys = Object.keys(data[result]);
           var total = 0;
@@ -43,6 +36,11 @@
         }
         
         var segQuery = function(serviceName) {
+          params = {
+            from: '2015-03-01',
+            to: moment(),
+            unit: 'day'
+          };
           serviceNameID = serviceName.split(' ').join('_');
           $('table#resultsTable').append(
             '<tr>' +
