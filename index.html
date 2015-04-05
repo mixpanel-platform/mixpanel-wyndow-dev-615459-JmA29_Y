@@ -15,8 +15,18 @@
     </style>
   </head>
   <body class="mixpanel-platform-body">
+    <table id="resultsTable">
+      <tr>
+        <td>Service Name</td>
+        <td>Service Sequence</td>
+        <td>Total Events In</td>
+        <td>Total Events Out</td>
+      </tr>
+    </table>
     <script>
       MP.api.ready(function() {
+        
+        
         
         params = {
           from: '2015-03-01',
@@ -76,13 +86,5 @@
         _.each(serviceNames, segQuery);
       });
     </script>
-    <table id="resultsTable">
-      <tr>
-        <td>Service Name</td>
-        <td>Service Sequence</td>
-        <td>Total Events In</td>
-        <td>Total Events Out</td>
-      </tr>
-    </table>
   </body>
 </html>
