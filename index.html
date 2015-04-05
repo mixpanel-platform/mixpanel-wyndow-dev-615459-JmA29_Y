@@ -69,19 +69,10 @@
           
           params['where'] = '(properties["serviceName"] == "'+serviceName+'") and (properties["direction"] == "Out")';
           MP.api.segment(event, 'direction', params).done(function(results) {
-            returnVar_out = calculateResults(results.values(), 'Out');
-            console.log(returnVar_out);
+            eventsOut = calculateResults(results.values(), 'Out');
+            serviceName = serviceName.split(' ').join('_');
+            $('#' + serviceName + '_Out').html(eventsOut);
           });
-          
-          console.log("waiting");
-          
-          // setTimeout(function(){ displayResults(returnVar_seq, returnVar_in, returnVar_out, serviceName); }, 3000);
-          
-          /*$.when(returnVar_seq, returnVar_in, returnVar_out).then(function(seq, inn, out)
-          {
-            console.log("resolved");
-            displayResults(seq, inn, out, serviceName);
-          });*/
         }
         
         segQuery('Deduplicate');
