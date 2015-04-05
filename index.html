@@ -73,6 +73,7 @@
           params['where'] = '(properties["serviceName"] == "' + serviceName + '") and (properties["direction"] == "Out")';
           MP.api.segment(event, 'direction', params).done(function(results) {
             //eventsOut = calculateResults(results.values(), 'Out');
+            eventsOut = results.values()[0];
             serviceName = serviceName.split(' ').join('_');
             $('#' + serviceName + '_Out').html(eventsOut);
           });
