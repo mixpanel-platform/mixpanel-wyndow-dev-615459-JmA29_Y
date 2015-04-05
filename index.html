@@ -34,7 +34,8 @@
           return total;
         }
         
-        var displayResults = function(seq, inn, out, serviceName){
+        var displayResults = function(seq, inn, out, serviceName) {
+          serviceName = serviceName.split(' ').join('_');
           var theDiv_seq = document.getElementById(serviceName + '_Seq');
           var theDiv_in = document.getElementById(serviceName + '_In');
           var theDiv_out = document.getElementById(serviceName + '_Out');
@@ -81,6 +82,7 @@
         }
         
         segQuery('Deduplicate');
+        segQuery('Search APIs');
       });
     </script>
     <table id="resultsTable">
@@ -95,6 +97,12 @@
         <td id='Deduplicate_Seq'></td>
         <td id='Deduplicate_In'></td>
         <td id='Deduplicate_Out'></td>
+      </tr>
+      <tr>
+        <td>Search APIs</td>
+        <td id='Search_APIs_Seq'></td>
+        <td id='Search_APIs_In'></td>
+        <td id='Search_APIs_Out'></td>
       </tr>
     </table>
   </body>
