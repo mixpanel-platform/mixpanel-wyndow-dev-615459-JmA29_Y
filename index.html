@@ -48,7 +48,7 @@
         var segQuery = function(serviceName) {
           serviceNameID = serviceName.split(' ').join('_');
           console.log("RESULTS TABLE");
-          console.log($('#resultsTable'));
+          console.log($('#resultsTable').append);
           $('#resultsTable').append(
             '<tr>' +
             '<td>' + serviceName + '</td>' +
