@@ -37,7 +37,7 @@
         var segQuery = function(serviceName) {
           serviceNameID = serviceName.split(' ').join('_');
           console.log("RESULTS TABLE");
-          console.log($('#resultsTable').append);
+          console.log($('#resultsTable'));
           $('#resultsTable').append(
             '<tr>' +
             '<td>' + serviceName + '</td>' +
@@ -46,7 +46,6 @@
             '<td id="' + serviceNameID + '_Out"></td>' +
             '</tr>'
           );
-          $('#test').html("hello");
           var event = 'Experience Stats Proto';
           
           params['where'] = '(properties["serviceName"] == "' + serviceName + '")';
@@ -85,6 +84,5 @@
         <td>Total Events Out</td>
       </tr>
     </table>
-    <div id="test"></div>
   </body>
 </html>
