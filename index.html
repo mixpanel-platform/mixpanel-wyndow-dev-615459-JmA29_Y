@@ -59,7 +59,8 @@
             console.log(returnVar_seq);
             serviceName = serviceName.split(' ').join('_');
             var theDiv_seq = document.getElementById(serviceName + '_Seq');
-            theDiv_seq.innerHTML = returnVar_seq;
+            //theDiv_seq.innerHTML = returnVar_seq;
+            $('#' + serviceName + '_Seq').html(returnVar_seq);
           });
           
           params['where'] = '(properties["serviceName"] == "'+serviceName+'") and (properties["direction"] == "In")';
