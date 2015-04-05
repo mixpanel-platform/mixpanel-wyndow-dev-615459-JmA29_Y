@@ -51,22 +51,20 @@
           var returnVar_in = $.Deferred();
           var returnVar_out = $.Deferred();
           
-          params['where'] = '(properties["serviceName"] == "'+serviceName+'")';
+          params['where'] = '(properties["serviceName"] == "' + serviceName + '")';
           MP.api.segment(event, 'serviceDisplayOrder', params).done(function(results) {
             var data = results.values();
             var keys = Object.keys(data);
-            returnVar_seq = keys[0];
-            console.log(returnVar_seq);
+            serviceSequence = keys[0];
             serviceName = serviceName.split(' ').join('_');
-            var theDiv_seq = document.getElementById(serviceName + '_Seq');
-            //theDiv_seq.innerHTML = returnVar_seq;
-            $('#' + serviceName + '_Seq').html(returnVar_seq);
+            $('#' + serviceName + '_Seq').html(serviceSequence);
           });
           
-          params['where'] = '(properties["serviceName"] == "'+serviceName+'") and (properties["direction"] == "In")';
+          params['where'] = '(properties["serviceName"] == "' + serviceName + '") and (properties["direction"] == "In")';
           MP.api.segment(event, 'direction', params).done(function(results) {
-            returnVar_in = calculateResults(results.values(), 'In');
-            console.log(returnVar_in);
+            eventsIn = calculateResults(results.values(), 'In');
+            serviceName = serviceName.split(' ').join('_');
+            $('#' + serviceName + '_In').html(eventsIn);
           });
           
           params['where'] = '(properties["serviceName"] == "'+serviceName+'") and (properties["direction"] == "Out")';
