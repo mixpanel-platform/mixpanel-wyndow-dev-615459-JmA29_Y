@@ -64,9 +64,7 @@
           params['method'] = 'sum';
           MP.api.segment(event, 'direction', params).done(function(results) {
             //eventsIn = calculateResults(results.values(), 'In');
-            console.log("RESULTS");
-            console.log(results.values());
-            eventsIn = results.values()[0];
+            eventsIn = results.values().length;
             serviceName = serviceName.split(' ').join('_');
             $('#' + serviceName + '_In').html(eventsIn);
           });
@@ -74,9 +72,7 @@
           params['where'] = '(properties["serviceName"] == "' + serviceName + '") and (properties["direction"] == "Out")';
           MP.api.segment(event, 'direction', params).done(function(results) {
             //eventsOut = calculateResults(results.values(), 'Out');
-            console.log("RESULTS");
-            console.log(results.values());
-            eventsOut = results.values()[0];
+            eventsOut = results.values().length;
             serviceName = serviceName.split(' ').join('_');
             $('#' + serviceName + '_Out').html(eventsOut);
           });
