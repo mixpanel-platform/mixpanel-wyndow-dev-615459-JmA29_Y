@@ -24,9 +24,7 @@
       </tr>
     </table>
     <script>
-      $(function() {MP.api.ready(function() {
-        
-        
+      MP.api.ready(function() {
         
         params = {
           from: '2015-03-01',
@@ -46,8 +44,6 @@
         
         var segQuery = function(serviceName) {
           serviceNameID = serviceName.split(' ').join('_');
-          console.log("RESULTS TABLE");
-          console.log($('table#resultsTable'));
           $('table#resultsTable').append(
             '<tr>' +
             '<td>' + serviceName + '</td>' +
