@@ -61,7 +61,6 @@
           });
           
           params['where'] = '(properties["serviceName"] == "' + serviceName + '") and (properties["direction"] == "In")';
-          params['method'] = 'sum';
           MP.api.segment(event, 'direction', params).done(function(results) {
             eventsIn = calculateResults(results.values(), 'In');
             //eventsIn = results.values().length;
