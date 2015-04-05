@@ -45,7 +45,16 @@
           theDiv_out.innerHTML = out;
         }
         
-        var segQuery = function(serviceName){
+        var segQuery = function(serviceName) {
+          serviceNameID = serviceName.split(' ').join('_');
+          var resultsTable = $('#resultsTable');
+          resultsTable.append(
+            '<tr>' +
+            '<td id="' + serviceNameID + '_Seq"></td>' +
+            '<td id="' + serviceNameID + '_In"></td>' +
+            '<td id="' + serviceNameID + '_Out"></td>' +
+            '</tr>'
+          );
           var event = 'Experience Stats Proto';
           var returnVar_seq = $.Deferred();
           var returnVar_in = $.Deferred();
@@ -67,7 +76,7 @@
             $('#' + serviceName + '_In').html(eventsIn);
           });
           
-          params['where'] = '(properties["serviceName"] == "'+serviceName+'") and (properties["direction"] == "Out")';
+          params['where'] = '(properties["serviceName"] == "' + serviceName + '") and (properties["direction"] == "Out")';
           MP.api.segment(event, 'direction', params).done(function(results) {
             eventsOut = calculateResults(results.values(), 'Out');
             serviceName = serviceName.split(' ').join('_');
@@ -85,18 +94,6 @@
         <td>Service Sequence</td>
         <td>Total Events In</td>
         <td>Total Events Out</td>
-      </tr>
-      <tr>
-        <td>Deduplicate</td>
-        <td id='Deduplicate_Seq'></td>
-        <td id='Deduplicate_In'></td>
-        <td id='Deduplicate_Out'></td>
-      </tr>
-      <tr>
-        <td>Search APIs</td>
-        <td id='Search_APIs_Seq'></td>
-        <td id='Search_APIs_In'></td>
-        <td id='Search_APIs_Out'></td>
       </tr>
     </table>
   </body>
