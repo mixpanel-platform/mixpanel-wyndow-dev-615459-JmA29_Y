@@ -76,9 +76,7 @@
         }
         
         var serviceNames = ['Deduplicate', 'Search APIs'];
-        _.each(serviceNames, function(serviceName) {
-          segQuery(serviceName);
-        });
+        _.each(serviceNames, segQuery);
         //segQuery('Deduplicate');
         //segQuery('Search APIs');
       });
