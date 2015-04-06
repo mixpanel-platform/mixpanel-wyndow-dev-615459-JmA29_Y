@@ -23,9 +23,12 @@
         <td>Total Events Out</td>
       </tr>
     </table>
+    
+    
     <script>
       MP.api.ready(function() {
         
+        //sums up the events over time to return a cumulative total
         var calculateResults = function(data, result){
           var keys = Object.keys(data[result]);
           var total = 0;
@@ -35,11 +38,14 @@
           return total;
         }
         
+        //Calculates the results for the table
         var segQuery = function(serviceName) {
           params = {
             from: '2015-03-01',
             to: moment()
           };
+          
+          
           var serviceNameID = serviceName.split(' ').join('_').replace(/["'()]/g,"");
           $('table#resultsTable').append(
             '<tr>' +
@@ -52,6 +58,8 @@
           var event = 'Experience Stats Proto';
           
           params['where'] = '(properties["serviceName"] == "' + serviceName + '")';
+          
+          //makes Segmentation request for Service Sequence, and returns the Service Sequence value
           MP.api.segment(event, 'serviceDisplayOrder', params).done(function(results) {
             var data = results.values();
             var keys = Object.keys(data);
@@ -59,12 +67,13 @@
             $('#' + serviceNameID + '_Seq').html(serviceSequence);
           });
           
+          //Updates params to indicate "in" direction, then makes segmentation request and calculates total
           params['where'] = '(properties["serviceName"] == "' + serviceName + '") and (properties["direction"] == "In")';
           MP.api.segment(event, 'direction', params).done(function(results) {
             eventsIn = calculateResults(results.values(), 'In');
             $('#' + serviceNameID + '_In').html(eventsIn);
           });
-          
+          //Updates params to indicate "in" direction, then makes segmentation request and calculates total
           params['where'] = '(properties["serviceName"] == "' + serviceName + '") and (properties["direction"] == "Out")';
           MP.api.segment(event, 'direction', params).done(function(results) {
             eventsOut = calculateResults(results.values(), 'Out');
@@ -72,6 +81,7 @@
           });
         }
         
+        //List of service names applicable to the project, and then performs segQuery for each service name
         var serviceNames = ['Deduplicate', 'Driving Time','Push to client (Deduplicate)', 'Push to client (Driving Time)', 'Search APIs'];
         _.each(serviceNames, segQuery);
       });
